@@ -1,6 +1,7 @@
 import unittest
 import torch
-
+import sys
+sys.path.append('/home/zhengwei/Desktop/Zhengwei/Projects/CVAE/normalizing-flows')
 from normflows.flows import MaskedAffineFlow, CCAffineConst
 from normflows.nets import MLP
 from normflows.flows.flow_test import FlowTest

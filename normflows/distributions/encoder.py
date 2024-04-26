@@ -166,7 +166,6 @@ class NNDiagGaussian(BaseEncoder):
 
     def log_prob(self, z, x):
         """
-
         Args:
           z: Primary random variable, first dimension is batch dimension
           x: Variable to condition on, first dimension is batch dimension

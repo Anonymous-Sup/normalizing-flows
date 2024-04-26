@@ -687,9 +687,11 @@ class NormalizingFlowVAE(nn.Module):
         # Flatten batch and sample dim
         z = z.view(-1, *z.size()[2:])
         log_q = log_q.view(-1, *log_q.size()[2:])
+        
         for flow in self.flows:
             z, log_det = flow(z)
             log_q -= log_det
+        
         log_p = self.prior.log_prob(z)
         if self.decoder is not None:
             log_p += self.decoder.log_prob(x, z)

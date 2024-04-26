@@ -130,3 +130,4 @@ dmypy.json
 
 # IDE directory
 .idea/
+datasets/MNIST/raw/*

@@ -215,6 +215,8 @@ class MaskedAffineFlow(Flow):
         trans = torch.where(torch.isfinite(trans), trans, nan)
         z_ = z_masked + (1 - self.b) * (z * torch.exp(scale) + trans)
         log_det = torch.sum((1 - self.b) * scale, dim=list(range(1, self.b.dim())))
+        # Compute log-Jacobian determinant only for the last dimension
+        # log_det = torch.sum((1 - self.b[..., -1:]) * scale[..., -1:], dim=list(range(1, self.b.dim())))
         return z_, log_det
 
     def inverse(self, z):
@@ -226,6 +228,7 @@ class MaskedAffineFlow(Flow):
         trans = torch.where(torch.isfinite(trans), trans, nan)
         z_ = z_masked + (1 - self.b) * (z - trans) * torch.exp(-scale)
         log_det = -torch.sum((1 - self.b) * scale, dim=list(range(1, self.b.dim())))
+        # log_det = -torch.sum((1 - self.b[..., -1:]) * scale[..., -1:], dim=list(range(1, self.b.dim())))
         return z_, log_det
 
 
